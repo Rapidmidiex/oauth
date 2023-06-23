@@ -4,14 +4,14 @@ import (
 	"testing"
 
 	rmxOAuth "github.com/rapidmidiex/oauth"
-	"github.com/rapidmidiex/oauth/providers/github"
+	"github.com/rapidmidiex/oauth/providers/faux"
 	"github.com/stretchr/testify/assert"
 )
 
 func Test_UseProviders(t *testing.T) {
 	a := assert.New(t)
 
-	provider := &github.Provider{}
+	provider := &faux.Provider{}
 	rmxOAuth.UseProviders(provider)
 	a.Equal(len(rmxOAuth.GetProviders()), 1)
 	a.Equal(rmxOAuth.GetProviders()[provider.Name()], provider)
@@ -21,7 +21,7 @@ func Test_UseProviders(t *testing.T) {
 func Test_GetProvider(t *testing.T) {
 	a := assert.New(t)
 
-	provider := &github.Provider{}
+	provider := &faux.Provider{}
 	rmxOAuth.UseProviders(provider)
 
 	p, err := rmxOAuth.GetProvider(provider.Name())
