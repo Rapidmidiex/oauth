@@ -44,7 +44,7 @@ func init() {
 	key := []byte(os.Getenv("SESSION_SECRET"))
 	keySet = len(key) != 0
 
-	cookieStore := sessions.NewCookieStore(key)
+	cookieStore := sessions.NewCookieStore()
 	cookieStore.Options.HttpOnly = true
 	Store = cookieStore
 	defaultStore = Store
@@ -207,6 +207,7 @@ var CompleteUserAuth = func(res http.ResponseWriter, req *http.Request) (rmxOAut
 	}
 
 	err = StoreInSession(providerName, sess.Marshal(), req, res)
+	fmt.Println(sess.Marshal())
 
 	if err != nil {
 		return rmxOAuth.User{}, err
