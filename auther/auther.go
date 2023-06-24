@@ -140,6 +140,7 @@ func GetAuthURL(res http.ResponseWriter, req *http.Request) (string, error) {
 	}
 
 	err = StoreInSession(providerName, sess.Marshal(), req, res)
+	fmt.Println(sess.Marshal())
 
 	if err != nil {
 		return "", err
