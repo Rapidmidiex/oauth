@@ -99,9 +99,13 @@ func (s *Session) Authorize(provider rmxOAuth.Provider, params rmxOAuth.Params) 
 }
 
 // Marshal is used only for testing.
-func (s *Session) Marshal() string {
-	b, _ := json.Marshal(s)
-	return string(b)
+func (s Session) Marshal() (string, error) {
+	b, err := json.Marshal(s)
+	if err != nil {
+		return "", err
+	}
+
+	return string(b), nil
 }
 
 // GetAuthURL is used only for testing.

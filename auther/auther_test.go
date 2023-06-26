@@ -134,7 +134,8 @@ func Test_CompleteUserAuth(t *testing.T) {
 
 	sess := github.Session{Name: "Homer Simpson", Email: "homer@example.com"}
 	session, _ := Store.Get(req, SessionName)
-	session.Values["faux"] = gzipString(sess.Marshal())
+	data, _ := sess.Marshal()
+	session.Values["faux"] = gzipString(data)
 	err = session.Save(req, res)
 	a.NoError(err)
 
@@ -155,7 +156,8 @@ func Test_CompleteUserAuthWithSessionDeducedProvider(t *testing.T) {
 
 	sess := github.Session{Name: "Homer Simpson", Email: "homer@example.com"}
 	session, _ := Store.Get(req, SessionName)
-	session.Values["faux"] = gzipString(sess.Marshal())
+	data, _ := sess.Marshal()
+	session.Values["faux"] = gzipString(data)
 	err = session.Save(req, res)
 	a.NoError(err)
 
@@ -177,7 +179,8 @@ func Test_CompleteUserAuthWithContextParamProvider(t *testing.T) {
 
 	sess := github.Session{Name: "Homer Simpson", Email: "homer@example.com"}
 	session, _ := Store.Get(req, SessionName)
-	session.Values["faux"] = gzipString(sess.Marshal())
+	data, _ := sess.Marshal()
+	session.Values["faux"] = gzipString(data)
 	err = session.Save(req, res)
 	a.NoError(err)
 
@@ -197,7 +200,8 @@ func Test_Logout(t *testing.T) {
 
 	sess := github.Session{Name: "Homer Simpson", Email: "homer@example.com"}
 	session, _ := Store.Get(req, SessionName)
-	session.Values["faux"] = gzipString(sess.Marshal())
+	data, _ := sess.Marshal()
+	session.Values["faux"] = gzipString(data)
 	err = session.Save(req, res)
 	a.NoError(err)
 

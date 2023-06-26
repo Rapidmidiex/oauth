@@ -33,6 +33,6 @@ func Test_ToJSON(t *testing.T) {
 	a := assert.New(t)
 	s := &Session{}
 
-	data := s.Marshal()
+	data, _ := s.Marshal()
 	a.Equal(data, `{"AuthURL":"","AccessToken":"","RefreshToken":"","ExpiresAt":"0001-01-01T00:00:00Z"}`)
 }

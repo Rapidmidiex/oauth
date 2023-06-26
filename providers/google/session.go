@@ -46,13 +46,13 @@ func (s *Session) Authorize(provider rmxOAuth.Provider, params rmxOAuth.Params) 
 }
 
 // Marshal the session into a string
-func (s Session) Marshal() string {
-	b, _ := json.Marshal(s)
-	return string(b)
-}
+func (s Session) Marshal() (string, error) {
+	b, err := json.Marshal(s)
+	if err != nil {
+		return "", err
+	}
 
-func (s Session) String() string {
-	return s.Marshal()
+	return string(b), nil
 }
 
 // UnmarshalSession will unmarshal a JSON string into a session.

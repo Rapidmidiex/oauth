@@ -35,14 +35,6 @@ func Test_ToJSON(t *testing.T) {
 	a := assert.New(t)
 	s := &facebook.Session{}
 
-	data := s.Marshal()
+	data, _ := s.Marshal()
 	a.Equal(data, `{"AuthURL":"","AccessToken":"","ExpiresAt":"0001-01-01T00:00:00Z"}`)
-}
-
-func Test_String(t *testing.T) {
-	t.Parallel()
-	a := assert.New(t)
-	s := &facebook.Session{}
-
-	a.Equal(s.String(), s.Marshal())
 }

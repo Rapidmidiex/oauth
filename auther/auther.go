@@ -139,7 +139,12 @@ func GetAuthURL(res http.ResponseWriter, req *http.Request) (string, error) {
 		return "", err
 	}
 
-	err = StoreInSession(providerName, sess.Marshal(), req, res)
+	bs, err := sess.Marshal()
+	if err != nil {
+		return "", err
+	}
+
+	err = StoreInSession(providerName, bs, req, res)
 
 	if err != nil {
 		return "", err
@@ -205,7 +210,12 @@ var CompleteUserAuth = func(res http.ResponseWriter, req *http.Request) (rmxOAut
 		return rmxOAuth.User{}, err
 	}
 
-	err = StoreInSession(providerName, sess.Marshal(), req, res)
+	bs, err := sess.Marshal()
+	if err != nil {
+		return rmxOAuth.User{}, err
+	}
+
+	err = StoreInSession(providerName, bs, req, res)
 
 	if err != nil {
 		return rmxOAuth.User{}, err

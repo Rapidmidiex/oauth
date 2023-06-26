@@ -14,7 +14,7 @@ type Session interface {
 	// GetAuthURL returns the URL for the authentication end-point for the provider.
 	GetAuthURL() (string, error)
 	// Marshal generates a string representation of the Session for storing between requests.
-	Marshal() string
+	Marshal() (string, error)
 	// Authorize should validate the data from the provider and return an access token
 	// that can be stored for later access to the provider.
 	Authorize(Provider, Params) (string, error)
