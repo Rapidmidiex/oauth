@@ -103,7 +103,7 @@ func ValidateState(r *http.Request, sess Session) error {
 
 var SessionName = "_rmx_oauth_session"
 
-func SetSession(w http.ResponseWriter, r *http.Response, sess Session, exp time.Duration) error {
+func SetSession(w http.ResponseWriter, sess Session, exp time.Duration) error {
 	bs, err := sess.Marshal()
 	if err != nil {
 		return err
