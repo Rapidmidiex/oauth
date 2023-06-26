@@ -12,24 +12,24 @@ func Test_UseProviders(t *testing.T) {
 	a := assert.New(t)
 
 	provider := &faux.Provider{}
-	oauth.DefaultOAuth.UseProviders(provider)
-	a.Equal(len(oauth.DefaultOAuth.GetProviders()), 1)
-	a.Equal(oauth.DefaultOAuth.GetProviders()[provider.Name()], provider)
-	oauth.DefaultOAuth.ClearProviders()
+	oauth.DefaultClient.UseProviders(provider)
+	a.Equal(len(oauth.DefaultClient.GetProviders()), 1)
+	a.Equal(oauth.DefaultClient.GetProviders()[provider.Name()], provider)
+	oauth.DefaultClient.ClearProviders()
 }
 
 func Test_GetProvider(t *testing.T) {
 	a := assert.New(t)
 
 	provider := &faux.Provider{}
-	oauth.DefaultOAuth.UseProviders(provider)
+	oauth.DefaultClient.UseProviders(provider)
 
-	p, err := oauth.DefaultOAuth.GetProvider(provider.Name())
+	p, err := oauth.DefaultClient.GetProvider(provider.Name())
 	a.NoError(err)
 	a.Equal(p, provider)
 
-	_, err = oauth.DefaultOAuth.GetProvider("unknown")
+	_, err = oauth.DefaultClient.GetProvider("unknown")
 	a.Error(err)
 	a.Equal(err.Error(), "no provider for unknown exists")
-	oauth.DefaultOAuth.ClearProviders()
+	oauth.DefaultClient.ClearProviders()
 }

@@ -32,14 +32,14 @@ const NoAuthUrlErrorMessage = "an AuthURL has not been set"
 type Providers map[string]Provider
 
 // use only for testing
-var DefaultOAuth = New()
+var DefaultClient = NewClient()
 
-type OAuth struct {
+type Client struct {
 	providers Providers
 }
 
-func New() *OAuth {
-	return &OAuth{
+func NewClient() *Client {
+	return &Client{
 		providers: make(map[string]Provider),
 	}
 }
@@ -94,21 +94,21 @@ func ValidateState(r *http.Request, sess Session) error {
 // UseProviders adds a list of available providers for use with Goth.
 // Can be called multiple times. If you pass the same provider more
 // than once, the last will be used.
-func (o *OAuth) UseProviders(providers ...Provider) {
+func (c *Client) UseProviders(providers ...Provider) {
 	for _, provider := range providers {
-		o.providers[provider.Name()] = provider
+		c.providers[provider.Name()] = provider
 	}
 }
 
 // GetProviders returns a list of all the providers currently in use.
-func (o *OAuth) GetProviders() Providers {
-	return o.providers
+func (c *Client) GetProviders() Providers {
+	return c.providers
 }
 
 // GetProvider returns a previously created provider. If Goth has not
 // been told to use the named provider it will return an error.
-func (o *OAuth) GetProvider(name string) (Provider, error) {
-	provider := o.providers[name]
+func (c *Client) GetProvider(name string) (Provider, error) {
+	provider := c.providers[name]
 	if provider == nil {
 		return nil, fmt.Errorf("no provider for %s exists", name)
 	}
@@ -117,8 +117,8 @@ func (o *OAuth) GetProvider(name string) (Provider, error) {
 
 // ClearProviders will remove all providers currently in use.
 // This is useful, mostly, for testing purposes.
-func (o *OAuth) ClearProviders() {
-	o.providers = Providers{}
+func (c *Client) ClearProviders() {
+	c.providers = Providers{}
 }
 
 // ContextForClient provides a context for use with oauth2.
